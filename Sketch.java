@@ -1,36 +1,73 @@
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
+  public float[] circleY = new float[50];
+  public float[] bottom = new float[400];
+  public float[] pMouseX = new float [25];
+  public float[] pMouseY = new float [25];
+  public float circleX;
 	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
   public void settings() {
-	// put your size call here
     size(400, 400);
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
+
   public void setup() {
-    background(210, 255, 173);
+    background(23, 23, 23);
+    for(int i = 0; i < circleY.length; i++)
+    {
+      circleY[i] = random (0,400);
+    }
   }
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
   public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+    background(23, 23, 23);
 
-    stroke(255);
-    line(50, 125, 70, 50);  
-  }
-  
-  // define other methods down here.
+    for (int i = 0; i < circleY.length; i++)
+    {
+      circleX = width * i / circleY.length;
+      ellipse(circleX, circleY[i], 5, 5);
+      circleY[i] += 2;
+      
+      if (keyPressed)
+      {
+        if(keyCode == UP)
+        {
+          circleY[i] += 4;
+        }
+        else if (keyCode == DOWN)
+        {
+          circleY[i] += 0.5;
+        }
+    }
+
+      if (circleY[i] > height)
+      {
+        circleY[i] = 0;
+        bottom[(int) circleX]++;
+      }
+    }
+    
+    for (int k = 0; k < bottom.length; k++)
+    {
+      for (int p = 0; p < bottom[k]; p++)
+      {
+        stroke(225);
+        fill(225);
+        rect(k, 395, 5, 5);
+
+        if (p > 1)
+        {
+          rect(k, height - (p*5), 5, 5);
+        }
+      }
+    }
+    
+    for (int i  = 0; i < pMouseX.length; i++)
+    {
+      pMouseX[i] = mouseX;
+      pMouseY[i] = mouseY;
+      ellipse(pMouseX[i], pMouseY[i], 25, 25);
+    }
+}
 }
