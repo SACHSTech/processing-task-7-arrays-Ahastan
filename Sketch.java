@@ -3,8 +3,8 @@ import processing.core.PApplet;
 public class Sketch extends PApplet {
   public float[] circleY = new float[50];
   public float[] bottom = new float[400];
-  public float[] moiseX = new float [25];
-  public float[] moiseY = new float [25];
+  public float[] pMouseX = new float [25];
+  public float[] pMouseY = new float [25];
   public float circleX;
 	
   public void settings() {
@@ -63,9 +63,11 @@ public class Sketch extends PApplet {
       }
     }
     
-    for (int i  = 0; i < moiseX.length; i++)
+    for (int i  = 0; i < pMouseX.length; i++)
     {
-      ellipse(moiseX[i], moiseY[i], 25, 25);
+      pMouseX[i] = mouseX;
+      pMouseY[i] = mouseY;
+      ellipse(pMouseX[i], pMouseY[i], 25, 25);
     }
 }
 }
